@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop/screens/account/profile.dart';
 
+import 'apiaddress.dart';
+
 
 
 class form extends StatefulWidget {
@@ -18,6 +20,32 @@ class _formState extends State<form> {
   String ?stete;
   String ?address;
    String ?country;
+var countrylist=[];
+void  getdata()async{
+
+  var data=await getcounlyList();
+  if(data.isNotEmpty){
+    setState(() {
+      countrylist=data;
+      print('mycountylist   $countrylist');
+      
+    });
+  }
+
+
+
+
+}
+
+
+@override 
+void initState(){
+  getdata();
+  super.initState();
+}
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -172,6 +200,64 @@ DropdownMenuItem(
          
        ),
        SizedBox(height: 20,),
+
+
+        Container(
+
+          child: Row(children: [
+            Text('select country'),
+            IconButton(onPressed: (){
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text('country'),
+
+                  content: Container(
+                    height: MediaQuery.of(context).size.height*0.5,
+                    width: 100,
+                    child: ListView.builder(
+                      itemCount: countrylist.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                      return  Text('${countrylist[index]['name']}');
+                    },)
+                  )
+                  
+                  // LayoutBuilder(
+                  //   builder: (context, constraints) {
+                  //     return    Container(
+                  //                         height: constraints.maxHeight * .7, // 70% height
+                  //     width: constraints.maxWidth * .9,
+                  
+                  //   //  height: 600,
+                  //   // width:double.infinity,
+                  //   child: ListView.builder(
+                  //     shrinkWrap: true,
+                  //     // scrollDirection: Axis.vertical,
+                  //     itemCount: countrylist.length,
+                  //     itemBuilder: (context, index) {
+                  //     return  Text('${countrylist[index]['name']}');
+                  //   },)
+                  //                 );
+                  
+                  
+                  //   },
+                  //   // child: 
+                    
+                  
+                  
+                  
+                  // ),
+              
+              
+              
+                );
+              },);
+
+
+
+            }, icon: Icon(Icons.arrow_drop_down))
+          ],),
+        ),
        TextFormField(
         controller: countryController,
         decoration: InputDecoration(

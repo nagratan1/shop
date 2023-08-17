@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:shop/screens/account/addform.dart';
+import 'package:shop/screens/address/addform.dart';
 
 import 'setting_screen.dart';
 
